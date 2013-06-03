@@ -63,4 +63,5 @@ $general_car = new car('red', 17, 'diesel');
 var_dump($general_car);
 
 $modelA_car  = new ModelA('red', 17, 'gasoline', 'ModelA', 400);
+var_dump($modelA_car);
 echo 'The car model is: ', $modelA_car->getModel(), ' that has the horsepower: ', $modelA_car->getHorsepower(), ' hp';
