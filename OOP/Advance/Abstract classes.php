@@ -24,7 +24,7 @@ abstract class concept_car {
     protected $weelNum  = NULL;
     protected $doorsNum = NULL;
     protected $color    = NULL;
-    protected $model     = NULL;
+    protected $model    = NULL;
     // the inheritance class must define this methods
     public function setCarDetails($weelNum, $doorsNum, $color)
     {
