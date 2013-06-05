@@ -33,6 +33,18 @@ abstract class concept_car {
         $this->color    = $color;
     }
     
+    /**
+     * @return array
+     */
+    public function getCarDetails()
+    {
+        return array (
+                'weels number' => $this->weelNum,
+                'doors number' => $this->doorsNum,
+                'color'        => $this->color
+        );
+    }
+    
     abstract public function setModel($model);
 
     abstract public function getModel();
@@ -53,5 +65,11 @@ class bmw extends concept_car {
 }
 
 $object = new bmw();
+$object->setCarDetails(4, 5, 'green');
 $object->setModel('Z3');
-echo $object->getModel();
+$carDetails = $object->getCarDetails();
+
+echo 'The car model: ',$object->getModel(), ' has the tehnical specifications: ';
+foreach($carDetails as $metadata => $data) {
+    echo $metadata,':', $data, ' ';
+}
