@@ -20,36 +20,36 @@
  */
 class Interceptors
 {
-    public function __set($property)
+    public function __set($propertyName, $propertyValue)
     {
-        return "{$property} undefined! Returned from __set() interceptor!";
+        var_dump( "{$propertyName} with {$propertyValue} undefined! Returned from __set() interceptor!");
     }
 
     public function __get($property)
     {
-        return "{$property} undefined! Returned from __get() interceptor!";
+        var_dump( "{$property} undefined! Returned from __get() interceptor!");
     }
 
     public function __isset($property)
     {
-        return "{$property} undefined! Returned from __isset() interceptor";
+        var_dump( "{$property} undefined! Returned from __isset() interceptor");
     }
 
     public function __unset($property)
     {
-        return "{$property} undefined! Returned from __unset() interceptor";
+        var_dump( "{$property} undefined! Returned from __unset() interceptor");
     }
 
     public function __call($methodName, $methodArguments)
     {
-        return "Undefined method: {$methodNname} called with arguments:
-                {$methodArguments} in object context";
+        var_dump( "Undefined method: {$methodName} called with arguments:"
+                .implode(', ',$methodArguments)." in object context");
     }
 
-    public static function _callStatic($methodName, $methodArguments)
+    public static function __callStatic($methodName, $methodArguments)
     {
-        return "Undefined method: {$methodNname} called with arguments:
-                {$methodArguments} in static context";
+        var_dump( "Undefined method: {$methodName} called with arguments:"
+                .implode(', ',$methodArguments)." in static context");
     }
 }
 
