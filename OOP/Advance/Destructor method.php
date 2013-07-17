@@ -24,13 +24,14 @@ class baz
 
     public function setDayCost($dayCost)
     {
-        if(!empty($this->dayCost))
-        $this->dayCost = $dayCost;
+        if(empty($this->dayCost)) {
+            $this->dayCost = $dayCost;
+        }
     }
 
     public function __destruct()
     {
-        return $this->dayCost;
+        var_dump($this->dayCost);
     }
 }
 
