@@ -20,10 +20,10 @@ class garage
      * @param string $surface the total available area of the garage
      * @param array $cars the number of pre parked cars, empty by default
      * @param array $allow_dim(
-                            'smin'  => <value>, min area, def 3m^2
-                            'smax'  => <value>, max area, def 5m^2
-                            'hmax'  => <value>  max car height, def 2m
-                            )
+     *                      'smin'  => <value>, min area, def 3m^2
+     *                      'smax'  => <value>, max area, def 5m^2
+     *                      'hmax'  => <value>  max car height, def 2m
+     *                      )
      * @return NULL
      */
     public function __construct($surface, $cars = array(),
@@ -56,6 +56,7 @@ class garage
      * setparkcar method used to park a car in the garage
      * @param int $carSurface the area of a parked car
      * @param str $carColor the color of the car that is going to pe parked
+     * @return bool if the car was parked or not
      */
     public function setparkcar($carSurface, $carH, $carColor)
     {
@@ -64,10 +65,11 @@ class garage
             $carH <= $this->allow_dim['hmax'] ) 
         {
                 $this->total_surface = $this->total_surface - $carSurface;
-        }
-        
-        !in_array($carColor, $colors) ? 
+                !in_array($carColor, $colors) ? 
                                 $colors[$carColor] = 1 : ++$colors[$carColor];
+                return TRUE;
+        }
+        return FALSE;
     }
 }
 
