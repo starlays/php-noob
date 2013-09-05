@@ -5,11 +5,24 @@
  */
 class garage
 {
-    // class property initialization
-    private $total_surface = NULL;
-    private $total_cars    = array();
+    /**
+     * @var int $totalSurface holder of the garage total available area
+     */
+    private $totalSurface = 0;
+    /**
+     * @var int totalCars holder of the total parked cars
+     */
+    private $totalCars    = 0;
+    /**
+     * @var mixed $colors how many cars of eatch colors are parked in the
+     * garage
+     */
     private $colors        = array();
-    private $allow_dim     = array(
+    /**
+     * @var mixed $allowDim maximum and minimum dimensions allowed for a car
+     * that will be parked in the garage
+     */
+    private $allowDim     = array(
                                 'smin'  =>3,
                                 'smax'  =>5,
                                 'hmax' =>2
@@ -19,7 +32,7 @@ class garage
      * Class constructor used to initialize the garage characteristics
      * @param string $surface the total available area of the garage
      * @param array $cars the number of pre parked cars, empty by default
-     * @param array $allow_dim(
+     * @param array $allowDim(
      *                      'smin'  => <value>, min area, def 3m^2
      *                      'smax'  => <value>, max area, def 5m^2
      *                      'hmax'  => <value>  max car height, def 2m
@@ -27,7 +40,7 @@ class garage
      * @return NULL
      */
     public function __construct($surface, $cars = array(),
-                                                $allow_dim = array())
+                                                $allowDim = array())
     {
         if(!is_string($surface)) {
             throw new Exception('Parameter $surface must be type string');
@@ -35,68 +48,81 @@ class garage
         if(!is_array($cars)) {
             throw new Exception('Parameter $cars is not array');
         }
-        if(!is_array($allow_dim) || empty($allow_dim)) {
-            throw new Exception('Parameter $allow_dim is not array or empty');
+        if(!is_array($allowDim) || empty($allowDim)) {
+            throw new Exception('Parameter $allowDim is not array or empty');
         }
-        if(!isset($allow_dim['smin'] && !isset($allow_dim['smax']) &&
-                                                !isset($allow_dim['hmax'])) {
-            throw new Exception('Parameter $allow_dim array geometry is not
+        if(!isset($allowDim['smin'] && !isset($allowDim['smax']) &&
+                                                !isset($allowDim['hmax'])) {
+            throw new Exception('Parameter $allowDim array geometry is not
             according to signature'); 
         }
        
-       $this->total_surface = $surface;
+       $this->totalSurface = $surface;
         
         if(!empty($cars)) {
-            $this->total_cars = count($cars);
+            $this->totalCars = count($cars);
         }
         
-        $this->allow_dim = $allow_dim;
+        $this->allowDim = $allowDim;
     }
     /**
-     * setparkcar method used to park a car in the garage
+     * setParkCar method used to park a car in the garage
      * @param int $carSurface the area of a parked car
      * @param str $carColor the color of the car that is going to pe parked
      * @return bool if the car was parked or not
      */
-    public function setparkcar($carSurface, $carH, $carColor)
+    public function setParkCar($carSurface, $carH, $carColor)
     {
-        if( $carSurgace >= $this->allow_dim['smin'] && 
-            $carSurgace <= $this->allow_dim['smax'] &&
-            $carH <= $this->allow_dim['hmax'] ) 
+        if( $carSurface >= $this->allowDim['smin'] && 
+            $carSurface <= $this->allowDim['smax'] &&
+            $carH <= $this->allowDim['hmax'] ) 
         {
-                $this->total_surface = $this->total_surface - $carSurface;
-                !in_array($carColor, $colors) ? 
-                                $colors[$carColor] = 1 : ++$colors[$carColor];
-                return TRUE;
+            $this->totalSurface = $this->totalSurface - $carSurface;
+            !in_array($carColor, $colors) ? 
+                            $colors[$carColor] = 1 : ++$colors[$carColor];
+            return TRUE;
         }
         return FALSE;
     }
 }
 
 class car
-{
-    private $surface = NULL;
-    private $height  = NULL;
+{   
+    /**
+     * @var int $surface the area that a car occupies
+     */
+    private $surface = 0;
+    /**
+     * @var int $height the height of the car
+     */
+    private $height  = 0;
+    /**
+     * @var string $color the color of the car
+     */
     private $color   = NULL;
     /**
-     * Class constructor
+     * Class constructor used to initialize an car object
+     * @param int $carSurface the area that the parked will take
+     * @param int $carHeight the heigth of the car
+     * @param str $carColor the color of the car that will be parked
+     * @retunr NULL
      */
-    public function __construct($car_surface, $car_height, $car_color)
+    public function __construct($carSurface, $carHeight, $carColor)
     {
-        if(!is_integer($car_surface) || $car_surface < 0) {
-            throw new Exception('Parameter $car_surface must be type integer
+        if(!is_integer($carSurface) || $carSurface < 0) {
+            throw new Exception('Parameter $carSurface must be type integer
             and greater then 0');
         }
-        if(!is_string($car_color)) {
-            throw new Exception('Parameter $car_color must be type string');
+        if(!is_string($carColor)) {
+            throw new Exception('Parameter $carColor must be type string');
         }
-        if(!is_integer($car_height) || $car_height < 0) {
+        if(!is_integer($carHeight) || $carHeight < 0) {
             throw new Exception('Parameter $carH must be integer and greater
             then 0');
         }
-        $this->height  = $car_height;
-        $this->surface = $car_surface;
-        $this->color   = $car_color;
+        $this->height  = $carHeight;
+        $this->surface = $carSurface;
+        $this->color   = $carColor;
     }
     // class getters
     public function getSurface()
