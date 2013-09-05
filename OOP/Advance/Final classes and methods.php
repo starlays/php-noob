@@ -5,7 +5,7 @@
  */
 final class Master
 {
-    public foo()
+    public function foo()
     {
         //here be code
     }
