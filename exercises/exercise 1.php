@@ -46,24 +46,23 @@ class garage
      * that will be parked in the garage
      */
     private $allowDim     = array(
-                                'smin'  =>3,
-                                'smax'  =>5,
+                                'smin' =>3,
+                                'smax' =>5,
                                 'hmax' =>2
                              );
-    
+
     /**
      * Class constructor used to initialize the garage characteristics
      * @param string $surface the total available area of the garage
      * @param array $cars the number of pre parked cars, empty by default
      * @param array $allowDim(
-     *                      'smin'  => <value>, min area, def 3m^2
-     *                      'smax'  => <value>, max area, def 5m^2
-     *                      'hmax'  => <value>  max car height, def 2m
+     *                      'smin' => <value>, min area, def 3m^2
+     *                      'smax' => <value>, max area, def 5m^2
+     *                      'hmax' => <value>  max car height, def 2m
      *                      )
-     * @return NULL
+     * @return null
      */
-    public function __construct($surface, $cars = array(),
-                                                $allowDim = array())
+    public function __construct($surface, $cars = array(), $allowDim = array())
     {
         if(!is_string($surface)) {
             throw new Exception('Parameter $surface must be type string');
@@ -77,15 +76,15 @@ class garage
         if(!isset($allowDim['smin']) && !isset($allowDim['smax']) &&
                                                 !isset($allowDim['hmax'])) {
             throw new Exception('Parameter $allowDim array geometry is not
-            according to signature'); 
+            according to signature');
         }
-       
+
        $this->totalSurface = $surface;
-        
+
         if(!empty($cars)) {
             $this->totalCars = count($cars);
         }
-        
+
         $this->allowDim = $allowDim;
     }
     /**
@@ -94,15 +93,15 @@ class garage
      * @param str $carColor the color of the car that is going to pe parked
      * @return bool if the car was parked or not
      */
-    public function setParkCar($carSurface, $carH, $carColor)
+    public function setParkCar(Icar $car)
     {
-        if( $carSurface >= $this->allowDim['smin'] && 
-            $carSurface <= $this->allowDim['smax'] &&
-            $carH <= $this->allowDim['hmax'] ) 
+        if( $car->surface >= $this->allowDim['smin'] &&
+            $car->surface <= $this->allowDim['smax'] &&
+            $car->height <= $this->allowDim['hmax'] )
         {
-            $this->totalSurface = $this->totalSurface - $carSurface;
-            !in_array($carColor, $colors) ? 
-                            $colors[$carColor] = 1 : ++$colors[$carColor];
+            $this->totalSurface = $this->totalSurface - $car->surface;
+            !in_array($car->color, $this->colors) ?
+                  $this->colors[$car->color] = 1 : ++$this->colors[$car->color];
             return TRUE;
         }
         return FALSE;
@@ -110,7 +109,7 @@ class garage
 }
 
 class car
-{   
+{
     /**
      * @var int $surface the area that a car occupies
      */
@@ -161,5 +160,3 @@ class car
         return $this->height;
     }
 }
-
-
