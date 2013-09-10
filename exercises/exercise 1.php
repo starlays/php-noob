@@ -3,6 +3,29 @@
  * The problem was found here:
  * http://forum.softpedia.com/topic/502547-concepte-si-design-oop/#entry6008095
  */
+interface Parkable {
+    public function setWidth($width);
+    public function setHeight($height);
+    public function setLenght($lenght);
+    public function setColor($color);
+    public function setParkplace($parkplace);
+    public function getWidth();
+    public function getHeight();
+    public function getLenght();
+    public function getColor();
+    public function getParkplace();
+    public function getSurface();
+}
+
+interface Parkplace {
+    public function setTotalSurface($totalSurface);
+    public function setTotalCars($totalCars);
+    public function setCarColors($colors = array());
+    public function setAllowDim($allowDim = array());
+    public function getAvailableSurface();
+    public function getCarColor();
+}
+
 class garage
 {
     /**
@@ -51,7 +74,7 @@ class garage
         if(!is_array($allowDim) || empty($allowDim)) {
             throw new Exception('Parameter $allowDim is not array or empty');
         }
-        if(!isset($allowDim['smin'] && !isset($allowDim['smax']) &&
+        if(!isset($allowDim['smin']) && !isset($allowDim['smax']) &&
                                                 !isset($allowDim['hmax'])) {
             throw new Exception('Parameter $allowDim array geometry is not
             according to signature'); 
