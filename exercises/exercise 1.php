@@ -3,56 +3,120 @@
  * The problem was found here:
  * http://forum.softpedia.com/topic/502547-concepte-si-design-oop/#entry6008095
  */
+
+/**
+ * Interface Parkable used for type parkable class implementation
+ */
 interface Parkable {
+    /**
+     * setWidth (str $width) method used to set parkable widht
+     * 
+     * @param int $width the width of parkable object
+     * @return null
+     */
     public function setWidth($width);
+    /**
+     * setHeight (str $height) method used to set parkable height
+     * 
+     * @param int $height the height of parkable object
+     * @return null
+     */
     public function setHeight($height);
-    public function setLenght($lenght);
-    public function setColor($color);
-    public function setParkplace($parkplace);
+    /**
+     * setLenght (str $length) method used to set parkable length
+     * 
+     * @param int $length the length of parkable object
+     * @return null
+     */
+    public function setLenght($length);
+    /**
+     * setIsParked (str $isParked) method used to set parkable parked state
+     * 
+     * @param bool $isParked the parked state of the parkable object
+     * @return null
+     */
+    public function setIsParked($isParked);
+    /**
+     * getWidth() method used to get the width
+     * @return null
+     */
     public function getWidth();
+    /**
+     * getHeight() method used to get the height
+     * @return null
+     */
     public function getHeight();
-    public function getLenght();
-    public function getColor();
-    public function getParkplace();
+    /**
+     * getLength() method used to get the length
+     * @return null
+     */
+    public function getLength();
+    /**
+     * getSurface() method used to get the area of the parkable object
+     * @return null
+     */
     public function getSurface();
+    /**
+     * getParkState() method used to get parkable state (parked or nod)
+     * @return null
+     */
+    public function getParkState();
 }
-
+/**
+ * Interface Parkplace used for type parkplace class implementation
+ */
 interface Parkplace {
+    /**
+     * setTotalSurface(int $totalSurface) method used to set parkplace surface
+     * 
+     * @param int $totalSurface
+     * @return null
+     */
     public function setTotalSurface($totalSurface);
-    public function setTotalCars($totalCars);
-    public function setCarColors($colors = array());
+     /**
+     * setAllowDim(array $allowDim) method used to set the maxium dimensions
+     * allowd in to the parkplace
+     * 
+     * @param type $allowDim
+     * @return null 
+     */
     public function setAllowDim($allowDim = array());
+    /**
+     * getAvailableSurface() method used to get the availale surface left in
+     * the parkplace
+     * 
+     * @return null
+     */
     public function getAvailableSurface();
-    public function getCarColor();
 }
 
-class garage
+class garage implements Parkplace
 {
     /**
      * @var int $totalSurface holder of the garage total available area
      */
-    private $totalSurface = 0;
+    protected $totalSurface = 0;
     /**
      * @var int totalCars holder of the total parked cars
      */
-    private $totalCars    = 0;
+    protected $totalCars    = 0;
     /**
      * @var mixed $colors how many cars of eatch colors are parked in the
      * garage
      */
-    private $colors        = array();
+    protected $colors       = array();
     /**
      * @var mixed $allowDim maximum and minimum dimensions allowed for a car
      * that will be parked in the garage
      */
-    private $allowDim     = array(
+    protected $allowDim     = array(
                                 'smin' =>3,
                                 'smax' =>5,
                                 'hmax' =>2
                              );
 
     /**
-     * Class constructor used to initialize the garage characteristics
+     * 
      * @param string $surface the total available area of the garage
      * @param array $cars the number of pre parked cars, empty by default
      * @param array $allowDim(
@@ -62,11 +126,11 @@ class garage
      *                      )
      * @return null
      */
-    public function __construct($surface, $cars = array(), $allowDim = array())
+    
+    
+    public function __construct($cars = array(), $allowDim = array())
     {
-        if(!is_string($surface)) {
-            throw new Exception('Parameter $surface must be type string');
-        }
+
         if(!is_array($cars)) {
             throw new Exception('Parameter $cars is not array');
         }
@@ -106,9 +170,25 @@ class garage
         }
         return FALSE;
     }
+    /**
+     * @throws Exception
+     */
+    public function setTotalSurface($totalSurface)
+    {
+        if (!is_int($totalSurface)) {
+            throw new Exception('Parameter $surface must be type string');
+        }
+
+    }
+    public function setAllowDim($allowDim = array()) {
+        
+    }
+    public function getAvailableSurface() {
+        
+    }
 }
 
-class car
+class car implements Parkplace
 {
     /**
      * @var int $surface the area that a car occupies
