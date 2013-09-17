@@ -245,7 +245,8 @@ class car implements Parkable
     const ERR_HEIGHT = 'Parameter $height must be int possitiv diferent from 0';
     const ERR_PARKED = 'Parameter $isParked must be boolean';
     
-    public function setWidth($width) {
+    public function setWidth($width) 
+    {
         if(!is_int($width) || 0 == $width) {
             throw new Exception(ERR_WIDTH, 6);
         }
@@ -253,7 +254,8 @@ class car implements Parkable
         $this->width = $width;
     }
 
-    public function setLenght($length) {
+    public function setLenght($length) 
+    {
        if(!is_int($length) || 0 == $length) {
             throw new Exception(ERR_LENGHT, 7);
         }
@@ -261,7 +263,8 @@ class car implements Parkable
         $this->length = $length;
     }
     
-    public function setHeight($height) {
+    public function setHeight($height) 
+    {
        if(!is_int($height) || 0 == $height) {
             throw new Exception(ERR_HEIGHT, 8);
         }
@@ -269,7 +272,8 @@ class car implements Parkable
         $this->height = $height;
     }
     
-    public function setIsParked($isParked) {
+    public function setIsParked($isParked) 
+    {
        if(!is_bool($isParked) || empty($isParked)) {
             throw new Exception(ERR_PARKED, 9);
         }
@@ -278,24 +282,29 @@ class car implements Parkable
     }
 
     
-    public function getWidth() {
+    public function getWidth() 
+    {
         return $this->width;
     }
     
-    public function getSurface() {
+    public function getSurface() 
+    {
         return $this->width * $this->length;
     }
     
-    public function getParkState() {
+    public function getParkState() 
+    {
         return $this->isParked;
     }
     
-    public function getLength() {
+    public function getLength() 
+    {
         return $this->length;
 
     }
     
-    public function getHeight() {
+    public function getHeight() 
+    {
         return $this->height;
     }
     
